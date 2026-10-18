@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Baiaman — сайт-визитка</title>
+  <meta name="description" content="Личный сайт-визитка: обо мне, чем занимаюсь, проекты и контакты.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234f46e5'/><text x='50' y='68' font-size='56' text-anchor='middle' fill='white' font-family='Arial' font-weight='700'>B</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f7fb;
+      --surface: #ffffff;
+      --text: #14141f;
+      --muted: #5b5b72;
+      --border: #e4e4ee;
+      --accent: #4f46e5;
+      --accent-2: #06b6d4;
+      --shadow: 0 10px 30px rgba(20, 20, 50, .08);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d0d14;
+        --surface: #16161f;
+        --text: #ececf4;
+        --muted: #a0a0b8;
+        --border: #262634;
+        --accent: #818cf8;
+        --accent-2: #22d3ee;
+        --shadow: 0 10px 30px rgba(0, 0, 0, .4);
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .container { max-width: 960px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
+
+    /* Навигация */
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 80%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { font-weight: 800; text-decoration: none; font-size: 1.1rem; }
+    .logo span { color: var(--accent); }
+    nav ul { display: flex; gap: 24px; list-style: none; }
+    nav ul a { text-decoration: none; color: var(--muted); font-weight: 500; font-size: .95rem; }
+    nav ul a:hover { color: var(--text); }
+
+    /* Главный блок */
+    .hero { padding: 96px 0 72px; text-align: center; }
+    .avatar {
+      width: 120px; height: 120px; margin: 0 auto 28px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 3rem; font-weight: 800; color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: var(--shadow);
+    }
+    .hero h1 { font-size: clamp(2.2rem, 6vw, 3.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -.02em; }
+    .hero h1 .grad {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero p { color: var(--muted); font-size: 1.15rem; max-width: 560px; margin: 18px auto 32px; }
+    .buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 12px 24px; border-radius: 999px;
+      font-weight: 600; text-decoration: none; transition: transform .15s, box-shadow .15s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--accent); color: #fff; box-shadow: var(--shadow); }
+    .btn-ghost { border: 1px solid var(--border); background: var(--surface); }
+
+    /* Секции */
+    section { padding: 64px 0; }
+    h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -.01em; }
+    .lead { color: var(--muted); margin-bottom: 32px; }
+    .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 24px;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .card .icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .card h3 { font-size: 1.1rem; margin-bottom: 6px; }
+    .card p { color: var(--muted); font-size: .95rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .tag {
+      font-size: .78rem; padding: 3px 10px; border-radius: 999px;
+      background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); font-weight: 500;
+    }
+    .about { display: grid; gap: 32px; grid-template-columns: 1.4fr 1fr; align-items: start; }
+    .about p + p { margin-top: 12px; }
+    .facts { list-style: none; display: grid; gap: 12px; }
+    .facts li { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; }
+    .facts b { display: block; font-size: 1.4rem; color: var(--accent); }
+    .facts span { color: var(--muted); font-size: .9rem; }
+
+    /* Контакты */
+    .contact-box {
+      text-align: center; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 24px; padding: 48px 24px;
+    }
+    .socials { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+
+    footer { padding: 32px 0; text-align: center; color: var(--muted); font-size: .9rem; border-top: 1px solid var(--border); }
+
+    @media (max-width: 640px) {
+      nav ul { gap: 14px; }
+      nav ul a { font-size: .85rem; }
+      .hero { padding: 64px 0 48px; }
+      .about { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container">
+      <a class="logo" href="#">Baiaman<span>.</span></a>
+      <ul>
+        <li><a href="#about">Обо мне</a></li>
+        <li><a href="#projects">Проекты</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="avatar">B</div>
+      <h1>Привет, я <span class="grad">Baiaman</span></h1>
+      <p>Здесь короткая фраза о себе: кто вы и чем занимаетесь. Например: «Создаю сайты и цифровые продукты».</p>
+      <div class="buttons">
+        <a class="btn btn-primary" href="#contact">Связаться</a>
+        <a class="btn btn-ghost" href="#projects">Мои проекты</a>
+      </div>
+    </section>
+
+    <section id="about" class="container">
+      <h2>Обо мне</h2>
+      <p class="lead">Пара слов о том, кто я и чем живу.</p>
+      <div class="about">
+        <div>
+          <p>Расскажите здесь свою историю: откуда вы, чем увлекаетесь, что вас вдохновляет. Два-три предложения вполне достаточно.</p>
+          <p>Можно добавить, над чем вы работаете сейчас и чему хотите научиться дальше.</p>
+        </div>
+        <ul class="facts">
+          <li><b>3+</b><span>года опыта</span></li>
+          <li><b>10+</b><span>завершённых проектов</span></li>
+          <li><b>∞</b><span>желания учиться</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="container">
+      <h2>Чем занимаюсь</h2>
+      <p class="lead">Основные направления.</p>
+      <div class="grid">
+        <div class="card">
+          <div class="icon">💻</div>
+          <h3>Разработка</h3>
+          <p>Сайты и веб-приложения: быстрые, аккуратные, удобные.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🎨</div>
+          <h3>Дизайн</h3>
+          <p>Интерфейсы, в которых приятно разбираться.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🚀</div>
+          <h3>Идеи</h3>
+          <p>Превращаю задумки в работающие продукты.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="container">
+      <h2>Проекты</h2>
+      <p class="lead">Несколько работ, которыми я горжусь.</p>
+      <div class="grid">
+        <a class="card" href="#" style="text-decoration:none">
+          <h3>Проект один</h3>
+          <p>Короткое описание: что это и какую задачу решает.</p>
+          <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span></div>
+        </a>
+        <a class="card" href="#" style="text-decoration:none">
+          <h3>Проект два</h3>
+          <p>Короткое описание: что это и какую задачу решает.</p>
+          <div class="tags"><span class="tag">JavaScript</span></div>
+        </a>
+        <a class="card" href="#" style="text-decoration:none">
+          <h3>Проект три</h3>
+          <p>Короткое описание: что это и какую задачу решает.</p>
+          <div class="tags"><span class="tag">Дизайн</span><span class="tag">UI</span></div>
+        </a>
+      </div>
+    </section>
+
+    <section id="contact" class="container">
+      <div class="contact-box">
+        <h2>Давайте общаться</h2>
+        <p class="lead" style="margin-bottom:0">Открыт к предложениям, сотрудничеству и просто хорошим разговорам.</p>
+        <div class="socials">
+          <a class="btn btn-primary" href="https://github.com/baiskiy312" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">Telegram</a>
+          <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="year"></span> Baiaman. Сделано с ❤️</div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
